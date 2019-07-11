@@ -13,7 +13,12 @@ the `dfelibs` target, i.e.
     ...
     target_link_library(<your/project/target> dfelibs)
 
-All libraries are licensed under the terms of the [MIT license][mit_license].
+All libraries are licensed under the terms of the [MIT license][license_mit].
+
+The library contains copies of the [SplitMix64][xoshiro] and
+[xoshiro256**][xoshiro] pseudorandom number generators written by David Blackman
+and Sebastiano Vigna which have been dedicated to the public domain under
+[CC0][license_cc0].
 
 Dispatcher
 ----------
@@ -176,6 +181,20 @@ or using the coefficients directly for fixed order polynomials:
 float y = dfe::polynomial_val(0.5f, {0.25f, 1.0f, 0.75f});
 ```
 
+Pseudorandom number generators
+------------------------------
+
+[SplitMix64][xoshiro] and [xoshiro256**][xoshiro] pseudorandom number generators
+with standard library compatible interfaces.
+
+```cpp
+#include <random>
+#include <dfe/dfe_prng.hpp>
+
+dfe::Xoshiro256StarStar prng(123);
+auto val = std::normal_distribution<double>()(prng);
+```
+
 Small vector
 ------------
 
@@ -193,6 +212,8 @@ vec.emplace_back(5.0); // memory is allocated and data moved
 
 
 [cmake]: https://www.cmake.org
-[mit_license]: https://opensource.org/licenses/MIT
+[license_cc0]: https://creativecommons.org/publicdomain/zero/1.0/
+[license_mit]: https://opensource.org/licenses/MIT
 [npy]: https://docs.scipy.org/doc/numpy/neps/npy-format.html
 [root]: https://root.cern.ch
+[xoshiro]: http://xoshiro.di.unimi.it/
